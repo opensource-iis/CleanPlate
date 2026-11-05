@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <h1>Impact report</h1>
+  <p>Estimated food saved and reward performance for {{ provider.name }}.</p>
+</section>
+
+<section class="stats-grid">
+  <div class="stat-card accent-green">
+    <span>Food rescued</span>
+    <strong>{{ listings|length * 3 }} kg</strong>
+  </div>
+  <div class="stat-card accent-blue">
+    <span>Redemptions</span>
+    <strong>{{ rewards|length * 8 }}</strong>
+  </div>
+  <div class="stat-card accent-gold">
+    <span>CO₂ avoided</span>
+    <strong>{{ listings|length * 7 }} kg</strong>
+  </div>
+</section>
+
+<section class="panel">
+  <h2>Surplus listings</h2>
+  {% if listings %}
+    <ul class="list">
+      {% for listing in listings %}
+        <li>
+          <div>
+            <strong>{{ listing.title }}</strong>
+            <small>{{ listing.pickup_window }}</small>
+          </div>
+          <span>{{ listing.quantity }} left</span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No surplus items listed yet.</p>
+  {% endif %}
+</section>
+{% endblock %}

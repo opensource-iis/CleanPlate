@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-card wide-card">
+  <h1>Create a reward</h1>
+  <form method="POST">
+    <label>
+      Reward title
+      <input type="text" name="title" required />
+    </label>
+    <label>
+      Description
+      <textarea name="description" rows="4" required></textarea>
+    </label>
+    <label>
+      Point cost
+      <input type="number" name="cost" min="50" step="10" value="100" required />
+    </label>
+    <button type="submit" class="button primary">Create reward</button>
+  </form>
+</section>
+{% endblock %}

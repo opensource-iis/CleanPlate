@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <h1>Rewards catalog</h1>
+  <p>Redeem your points for partner perks and food discounts.</p>
+</section>
+
+<section class="reward-grid">
+  {% for reward in rewards %}
+    <article class="reward-card">
+      <div class="reward-header">
+        <h3>{{ reward.title }}</h3>
+        <span class="badge">{{ reward.cost }} pts</span>
+      </div>
+      <p>{{ reward.description }}</p>
+      <small>Partner: {{ reward.provider.name }}</small>
+      <form method="POST" action="{{ url_for('main.redeem_reward', reward_id=reward.id) }}">
+        <button type="submit" class="button primary" {% if current_user.points < reward.cost %}disabled{% endif %}>
+          {% if current_user.points < reward.cost %}Not enough points{% else %}Redeem{% endif %}
+        </button>
+      </form>
+    </article>
+  {% endfor %}
+</section>
+{% endblock %}

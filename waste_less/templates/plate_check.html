@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-card wide-card">
+  <h1>Plate check</h1>
+  <p>Clean plate = +50 points. If food remains, points are reduced to reflect waste.</p>
+  <form method="POST" enctype="multipart/form-data">
+    <label>
+      Plate photo
+      <input type="file" name="photo" accept="image/png,image/jpeg" required />
+    </label>
+    <button type="submit" class="button primary">Submit plate check</button>
+  </form>
+</section>
+{% endblock %}

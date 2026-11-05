@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <span class="eyebrow">Earn rewards for every meal you don't waste</span>
+    <h1>Turn leftovers into points, perks, and positive impact.</h1>
+    <p>
+      Waste Less helps people earn points by finishing meals, rescuing surplus food, and using groceries before expiry.
+      Providers can reduce waste and reward loyal customers with real perks.
+    </p>
+    <div class="actions">
+      <a class="button primary" href="{{ url_for('main.register') }}">Get started</a>
+      <a class="button secondary" href="{{ url_for('main.login') }}">Login</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <div class="mini-stat">
+      <span>Meals saved</span>
+      <strong>1,240</strong>
+    </div>
+    <div class="mini-stat">
+      <span>CO₂ avoided</span>
+      <strong>420 kg</strong>
+    </div>
+    <div class="mini-stat">
+      <span>Community points</span>
+      <strong>88,650</strong>
+    </div>
+  </div>
+</section>
+
+<section class="feature-grid">
+  <article class="feature-card">
+    <h3>Plate challenge</h3>
+    <p>Upload a photo of your cleared plate to verify you finished your meal and earn points.</p>
+  </article>
+  <article class="feature-card">
+    <h3>Rescue bags</h3>
+    <p>Buy surplus food at discounted prices near closing time and collect your points.</p>
+  </article>
+  <article class="feature-card">
+    <h3>Rewards</h3>
+    <p>Redeem your points for tea, lunch discounts, groceries, and partner perks.</p>
+  </article>
+</section>
+{% endblock %}

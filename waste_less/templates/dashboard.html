@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="dashboard-header">
+  <div>
+    <span class="eyebrow">CONSUMER DASHBOARD</span>
+    <h1>Hello, {{ current_user.name }}</h1>
+  </div>
+  <div class="level-pill">Level: {{ current_user.level }}</div>
+</section>
+
+<section class="stats-grid">
+  <div class="stat-card accent-green">
+    <span>Points balance</span>
+    <strong>{{ current_user.points }}</strong>
+  </div>
+  <div class="stat-card accent-blue">
+    <span>Meals logged</span>
+    <strong>{{ current_user.plate_submissions|length }}</strong>
+  </div>
+  <div class="stat-card accent-gold">
+    <span>Rewards redeemed</span>
+    <strong>{{ current_user.redemptions|length }}</strong>
+  </div>
+</section>
+
+<section class="action-row">
+  <a class="button primary" href="{{ url_for('main.plate_check') }}">Submit empty plate</a>
+  <a class="button secondary" href="{{ url_for('main.rewards') }}">View rewards</a>
+  <a class="button secondary" href="{{ url_for('main.leaderboard') }}">View leaderboard</a>
+</section>
+
+<section class="two-column">
+  <article class="panel">
+    <h2>Recent activity</h2>
+    {% if recent_transactions %}
+      <ul class="list">
+        {% for tx in recent_transactions %}
+          <li>
+            <div>
+              <strong>{{ tx.description }}</strong>
+              <small>{{ tx.category }} • {{ tx.created_at.strftime('%d %b %Y') }}</small>
+            </div>
+            <span class="score {{ 'positive' if tx.amount > 0 else 'negative' }}">
+              {{ '+' if tx.amount > 0 else '' }}{{ tx.amount }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No transactions yet. Start by submitting a plate check.</p>
+    {% endif %}
+  </article>
+
+  <article class="panel">
+    <h2>Recent plate submissions</h2>
+    {% if submissions %}
+      <ul class="list">
+        {% for submission in submissions %}
+          <li>
+            <div>
+              <strong>{{ submission.status|title }}</strong>
+              <small>{{ submission.created_at.strftime('%d %b %Y') }}</small>
+            </div>
+            <span class="score {{ 'positive' if submission.points_awarded > 0 else 'negative' }}">
+              {{ '+' if submission.points_awarded > 0 else '' }}{{ submission.points_awarded }}
+            </span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No plate checks yet.</p>
+    {% endif %}
+  </article>
+</section>
+
+<section class="panel">
+  <h2>Leaderboard</h2>
+  <ol class="leaderboard list">
+    {% for user in leaderboard %}
+      <li>
+        <span>{{ loop.index }}. {{ user.name }}</span>
+        <strong>{{ user.points }} pts</strong>
+      </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endblock %}

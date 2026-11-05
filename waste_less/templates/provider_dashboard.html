@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="dashboard-header">
+  <div>
+    <span class="eyebrow">Provider dashboard</span>
+    <h1>{{ provider.name }}</h1>
+  </div>
+  <a class="button primary" href="{{ url_for('main.create_reward') }}">Create reward</a>
+</section>
+
+<section class="stats-grid">
+  <div class="stat-card accent-green">
+    <span>Rewards listed</span>
+    <strong>{{ rewards|length }}</strong>
+  </div>
+  <div class="stat-card accent-blue">
+    <span>Saved food</span>
+    <strong>28 kg</strong>
+  </div>
+  <div class="stat-card accent-gold">
+    <span>Community saved</span>
+    <strong>£1,240</strong>
+  </div>
+</section>
+
+<section class="two-column">
+  <article class="panel">
+    <h2>Active rewards</h2>
+    {% if rewards %}
+      <ul class="list">
+        {% for reward in rewards %}
+          <li>
+            <div>
+              <strong>{{ reward.title }}</strong>
+              <small>{{ reward.cost }} pts</small>
+            </div>
+            <span>{{ reward.description }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No rewards yet. Create your first offer.</p>
+    {% endif %}
+  </article>
+
+  <article class="panel">
+    <h2>Top community impact</h2>
+    <ol class="leaderboard list">
+      {% for user in leaderboard or [] %}
+        <li>
+          <span>{{ user.name }}</span>
+          <strong>{{ user.points }} pts</strong>
+        </li>
+      {% endfor %}
+    </ol>
+  </article>
+</section>
+
+<section class="action-row">
+  <a class="button secondary" href="{{ url_for('main.provider_impact') }}">View impact</a>
+</section>
+{% endblock %}
